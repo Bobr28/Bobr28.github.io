@@ -320,10 +320,65 @@
             overflow: hidden;
         }
         
+        /* Полноэкранный режим */
+        .reader-window.fullscreen {
+            top: 0;
+            left: 0;
+            transform: none;
+            width: 100%;
+            height: 100vh;
+            max-width: none;
+            border-radius: 0;
+            box-shadow: none;
+            z-index: 1001;
+        }
+        
+        /* В полноэкранном режиме скрываем верхнюю панель и панель управления */
+        .reader-window.fullscreen .reader-header,
+        .reader-window.fullscreen .reader-controls {
+            display: none;
+        }
+        
+        /* Кнопка возврата из полноэкранного режима */
+        .exit-fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.5rem;
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .reader-window.fullscreen + .exit-fullscreen-btn {
+            display: flex;
+        }
+        
+        .exit-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+        
         .dark-theme .reader-window {
             background-color: #2a2a2a;
             color: #e0e0e0;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .dark-theme .reader-window.fullscreen {
+            box-shadow: none;
         }
         
         .reader-header {
@@ -367,6 +422,11 @@
             hyphens: auto;
             max-height: calc(95vh - 140px);
             background-color: #fffef7;
+        }
+        
+        .reader-window.fullscreen .reader-content {
+            max-height: 100vh;
+            padding-top: 50px;
         }
         
         .dark-theme .reader-content {
@@ -480,6 +540,28 @@
             transform: scale(1.1);
         }
         
+        .fullscreen-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fullscreen-btn:hover {
+            background: linear-gradient(135deg, #8e44ad, #7d3c98);
+            transform: scale(1.1);
+        }
+        
         .overlay {
             position: fixed;
             top: 0;
@@ -490,6 +572,238 @@
             z-index: 999;
             display: none;
             backdrop-filter: blur(3px);
+        }
+        
+        /* Скрываем оверлей в полноэкранном режиме */
+        .reader-window.fullscreen + .overlay {
+            display: none;
+        }
+        
+        /* Стили для системы отзывов */
+        .reviews-section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dark-theme .reviews-section {
+            background-color: #2a2a2a;
+        }
+        
+        .reviews-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding-right: 10px;
+        }
+        
+        .review-form {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .dark-theme .review-form {
+            background-color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .dark-theme .form-group label {
+            color: #e0e0e0;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .form-group input,
+        .dark-theme .form-group textarea,
+        .dark-theme .form-group select {
+            background-color: #444;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+        
+        .submit-review-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-review-btn:hover {
+            background: linear-gradient(135deg, #27ae60, #219653);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+        
+        .review-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+        }
+        
+        .dark-theme .review-card {
+            background-color: #333;
+            border-left-color: #90caf9;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-theme .review-header {
+            border-bottom-color: #444;
+        }
+        
+        .review-author {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .dark-theme .review-author {
+            color: #e0e0e0;
+        }
+        
+        .review-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .dark-theme .review-date {
+            color: #aaa;
+        }
+        
+        .review-rating {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .review-text {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .dark-theme .review-text {
+            color: #e0e0e0;
+        }
+        
+        .no-reviews {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .dark-theme .no-reviews {
+            color: #aaa;
+        }
+        
+        .reviews-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            justify-content: center;
+        }
+        
+        .dark-theme .reviews-stats {
+            background: linear-gradient(135deg, #333, #2a2a2a);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .dark-theme .stat-value {
+            color: #90caf9;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .dark-theme .stat-label {
+            color: #aaa;
+        }
+        
+        .reviews-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -520,6 +834,58 @@
                 <!-- Книги будут добавлены через JavaScript -->
             </div>
         </section>
+        
+        <!-- Система отзывов -->
+        <section class="reviews-section">
+            <div class="reviews-title">
+                <h2>Отзывы читателей</h2>
+                <button class="btn btn-read" id="showReviewForm">Оставить отзыв</button>
+            </div>
+            
+            <div class="reviews-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalReviews">0</div>
+                    <div class="stat-label">Всего отзывов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avgRating">0.0</div>
+                    <div class="stat-label">Средняя оценка</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="reviewsThisMonth">0</div>
+                    <div class="stat-label">За этот месяц</div>
+                </div>
+            </div>
+            
+            <div class="review-form" id="reviewForm" style="display: none;">
+                <h3>Оставить отзыв о библиотеке</h3>
+                <div class="form-group">
+                    <label for="reviewName">Ваше имя:</label>
+                    <input type="text" id="reviewName" placeholder="Введите ваше имя" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>Ваша оценка:</label>
+                    <div class="rating-stars">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                    <input type="hidden" id="reviewRating" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Ваш отзыв:</label>
+                    <textarea id="reviewText" rows="5" placeholder="Напишите ваш отзыв о библиотеке..." maxlength="1000"></textarea>
+                </div>
+                <button class="submit-review-btn" id="submitReview">Отправить отзыв</button>
+            </div>
+            
+            <div class="reviews-container" id="reviewsContainer">
+                <!-- Отзывы будут добавлены через JavaScript -->
+                <div class="no-reviews">Пока нет отзывов. Будьте первым!</div>
+            </div>
+        </section>
     </main>
     
     <footer class="container">
@@ -541,12 +907,16 @@
             <div class="font-controls">
                 <button class="font-btn" id="fontMinus" title="Уменьшить шрифт">A-</button>
                 <button class="font-btn" id="fontPlus" title="Увеличить шрифт">A+</button>
+                <button class="fullscreen-btn" id="fullscreenBtn" title="Полноэкранный режим">⛶</button>
             </div>
         </div>
         <div class="reader-content" id="readerContent">
             Содержание книги...
         </div>
     </div>
+    
+    <!-- Кнопка возврата из полноэкранного режима -->
+    <button class="exit-fullscreen-btn" id="exitFullscreenBtn" title="Выйти из полноэкранного режима">✕</button>
 
     <script>
         // Данные книг с объединенными страницами для лучшего чтения
@@ -563,7 +933,7 @@
                     <p>Однако всё перевернулось, когда мои мать и отец умерли. Я остался с детьми, но справлялся. Потом они переехали в другую страну, и я оказался один.</p>
                     <p>Всё изменилось в одну ночь. Я возвращался с работы, и вдруг из‑за угла вышел человек с ножом. Он напал на меня — и погиб. А я очутился в странном месте. Всё переливалось цветами. Я увидел силуэт, который сказал, что я должен переродиться и помочь этому миру развиться. Я согласился — мне нечего было терять.</p>
                     <div class="chapter-start">Глава 2</div>
-                    <p>Этот силуэт рассказал, что, когда я появлюсь в новом мире, он даст мне две способности: гибридность и среднюю устойчивость ко всем стихиям. Он также добавил, что является божественным обликом этого мира, и объяснил, как работает моя способность — гибридность.</p>
+                    <p>Этот силуэт рассказал, что, когда я появлюсь в новом мире, он даст мне две способности: гибридность и средняя устойчивость ко всем стихиям. Он также добавил, что является божественным обликом этого мира, и объяснил, как работает моя способность — гибридность.</p>
                     <p>Я могу скрещивать с собой или друг с другом разные виды существ. Но есть ограничения: если оба существа одного пола, слияние не сработает; если животное долгое время остаётся без слияния, оно погибает; при повторной встрече существо может не подчиниться моим словам.</p>
                     <p>После этого он отправил меня в новый мир.</p>
                     <p>Я очнулся на мягкой травяной подстилке, окутанный тёплым золотистым светом. Воздух пах свежестью и чем‑то незнакомым — словно смесью луговых трав и далёкого моря. Медленно приподнявшись, я огляделся: вокруг расстилался невиданный лес. Деревья переливались всеми оттенками изумруда и лазури, а листья мерцали, будто покрытые крошечными кристаллами.</p>`,
@@ -681,147 +1051,108 @@
                     </p>`
                 ]
             },
-{
-    id: 4,
-    title: "Последний свет",
-    author: "RafStar",
-    year: 2023,
-    cover: "Последний свет",
-    pages: [
-        `<div class="chapter-start">Часть 1</div>
-        <p>В старом доме на окраине города, где скрипели половицы и пахли пылью занавески, жил Александр — мужчина лет пятидесяти с усталыми глазами и сединой в волосах. Он редко выходил на улицу, редко разговаривал с соседями. Его мир сузился до четырёх стен, где единственным собеседником было прошлое.</p>
-        
-        <p>Каждый вечер он садился у окна с потёртой фотографией в руках. На ней — молодая женщина с улыбкой, от которой когда‑то становилось теплее. Анна. Его жена. Её не стало три года назад, но для Александра время словно остановилось.</p>
-        
-        <div class="chapter-start">Часть 2</div>
-        <p>Однажды в дверь постучали. На пороге стояла девочка лет десяти — соседка из дома напротив.</p>
-        
-        <p>— Вы Александр Иванович? — спросила она, переминаясь с ноги на ногу. — Бабушка говорит, что вы раньше были художником. А я рисую, но у меня не очень получается…</p>
-        
-        <p>Он хотел закрыть дверь. Хотел остаться в своём мире тишины и воспоминаний. Но что‑то в её глазах — такое же потерянное, как его собственное — заставило его отступить.</p>
-        
-        <p>— Заходи, — пробормотал он.</p>`,
-        
-        `<p>Первые занятия были неловкими. Девочка, Лиза, пыталась копировать его мазки, но всё выходило криво. Александр хмурился, но не прогонял её. Постепенно разговоры стали длиннее. Лиза рассказывала о школе, о маме, которая вечно занята, о том, как ей одиноко. Александр слушал и вдруг понял: её одиночество было таким же тяжёлым, как его.</p>
-        
-        <div class="chapter-start">Часть 3</div>
-        <p>Через месяц Лиза принесла свой рисунок — неумелый, но тёплый: старый дом, окно, в котором виднеется силуэт мужчины, и маленькая девочка рядом.</p>
-        
-        <p>— Это мы, — сказала она. — Вы больше не один.</p>
-        
-        <p>Александр молча смотрел на рисунок. В груди что‑то дрогнуло — будто трещина в ледяной глыбе, через которую пробился свет.</p>
-        
-        <p>А потом Лиза перестала приходить.</p>`,
-        
-        `<p>Он узнал случайно: её мама, встретив его на улице, сухо сказала, что они переезжают. Далеко. Навсегда.</p>
-        
-        <p>Александр вернулся домой, сел у окна и сжал в руках тот самый рисунок. Впервые за три года слёзы пришли не от боли утраты, а от чего‑то другого — от благодарности, от осознания, что даже на миг он перестал быть один.</p>
-        
-        <div class="chapter-start">Эпилог</div>
-        <p>Вечером он взял кисти. Долго смотрел на чистый холст, а потом начал рисовать. Дом. Окно. Силуэты. И свет — тёплый, дрожащий, как надежда.</p>
-        
-        <p>Это был его первый новый рисунок за много лет.</p>
-        
-        <p style="font-style: italic; margin-top: 2em; text-align: center; border-top: 1px solid #ccc; padding-top: 1em;">
-        «Иногда самый маленький лучик света может растопить самую толстую стену льда»
-        </p>`
-    ]
-},
-{
-    id: 5,
-    title: "Тень забытого рода",
-    author: "RafStar",
-    year: 2025,
-    cover: "Тень забытого рода",
-    pages: [
-        `<div class="chapter-start">Пролог</div>
-        <p>В мире, где сила измеряется не мускулами, а умением сливаться с тенями, я проснулся — но не в своём теле.</p>
-        
-        <div class="chapter-start">Глава 1. Пробуждение в чужом теле</div>
-        <p>Я открыл глаза и увидел низкий сводчатый потолок из серого камня. В воздухе витал запах сырости и старых трав. Тело ныло, будто после десятичасовой тренировки, но это было не моё тело: тонкие пальцы с бледной кожей, хрупкие запястья, непривычная лёгкость в движениях.</p>
-        
-        <p>Память обрушилась лавиной.</p>
-        
-        <p>Лираэль Вельторн, 17 лет. Последняя из древнего рода теневых магов. Изгнана из академии за «неконтролируемые проявления силы». Живёт в заброшенной башне на окраине Сумеречного леса.</p>
-        
-        <p>Я — не она. Я — Максим, программист из XXI века, который вчера вечером уснул за монитором, разбираясь в чужом коде. А теперь… теперь я в её теле, в мире, где магия реальна, а тени живут своей жизнью.</p>`,
-        
-        `<div class="chapter-start">Глава 2. Первые шаги в тени</div>
-        <p>Лираэль (или уже я?) села на жёсткой кровати и протянула руку. Тени вокруг зашевелились, словно живые: потянулись к пальцам, обвили запястья, прошептали что‑то на незнакомом языке.</p>
-        
-        <p>— Так вот как это работает, — прошептала я, пытаясь уловить ритм.</p>
-        
-        <p>Тени откликались на эмоции. Страх делал их резкими и агрессивными, любопытство — плавными и любопытными, как котята. Я сосредоточилась на спокойствии, и тени успокоились, образовав вокруг меня тихий вихрь.</p>
-        
-        <p>«Нужно понять правила этого мира. И найти способ вернуться… или выжить здесь».</p>
-        
-        <div class="chapter-start">Глава 3. Встреча с прошлым</div>
-        <p>На следующий день я отправилась в ближайшую деревню. Нужно было купить еду и узнать, что происходит в мире. В таверне «Сумеречный ворон» меня окликнул грубый голос:</p>
-        
-        <p>— Лираэль? Ты ещё не сбежала из своих развалин?</p>`,
-        
-        `<p>За столом сидел мужчина в кожаной куртке, с татуировкой в виде змеи на шее. Его глаза светились жёлтым — признак мага крови.</p>
-        
-        <p>— Валтор, — процедила я, стараясь не показать страха. — Что тебе нужно?</p>
-        
-        <p>— Ты знаешь, что твой род проклял этот лес? Тени убивают людей. И если ты не докажешь, что контролируешь их, тебя сожгут на костре.</p>
-        
-        <p>Я сжала кулаки. Тени за моей спиной зашипели.</p>
-        
-        <p>— Я не виновата в проклятии. Но разберусь с ним.</p>
-        
-        <p>Валтор усмехнулся:</p>
-        
-        <p>— Посмотрим. Время идёт, Лираэль. Тени не ждут.</p>
-        
-        <div class="chapter-start">Глава 4. Тайна рода</div>
-        <p>Вернувшись в башню, я перерыла все книги. В одной из них, покрытой паутиной, нашлась запись:</p>`,
-        
-        `<p>«Род Вельторн заключил договор с Тенью Бездны. Сила дана, но цена — души потомков. Когда последняя из рода пробудит древнюю магию, проклятие либо падёт, либо поглотит мир».</p>
-        
-        <p>Значит, я не просто застряла в этом теле. Я — ключ. Либо спаситель, либо разрушитель.</p>
-        
-        <p>Тени вокруг зашевелились сильнее. Они ждали.</p>
-        
-        <div class="chapter-start">Глава 5. Выбор</div>
-        <p>Ночью я вышла на поляну перед башней. Небо было усыпано звёздами, но их свет поглощала тьма. Я подняла руки и позвала:</p>
-        
-        <p>— Тень Бездны, я слышу тебя. Что ты хочешь?</p>
-        
-        <p>Тишина. Затем — голос, звучащий в голове:</p>
-        
-        <p>«Ты должна принять тьму. Или она поглотит тебя».</p>`,
-        
-        `<p>Я закрыла глаза. Перед мысленным взором пронеслись образы: мой старый мир, друзья, работа. Всё это теперь далеко. Здесь и сейчас — только я и тени.</p>
-        
-        <p>— Хорошо, — сказала я. — Я принимаю.</p>
-        
-        <p>Тени рванулись ко мне, окутав с головой. Боль. Свет. И…</p>
-        
-        <p>Пробуждение.</p>
-        
-        <p>Теперь я видела мир иначе. Тени были не просто слугами — они были частью меня. А проклятие… оно ждало своего часа.</p>
-        
-        <div class="chapter-start">Финал (открытый)</div>
-        <p>Я стояла на краю леса, глядя на деревню внизу. Валтор и его люди готовились к охоте на «проклятую ведьму». Но теперь я знала: тени — не враги. Они — моя сила.</p>
-        
-        <p>Что дальше? Сразиться? Сбежать? Или попытаться снять проклятие?</p>
-        
-        <p>Выбор за мной.</p>
-        
-        <p>И тени ждут.</p>
-        
-        <p style="font-style: italic; margin-top: 2em; text-align: center; border-top: 1px solid #ccc; padding-top: 1em;">
-        «Когда тебя окружает тьма, не борись с ней — стань её частью»
-        </p>`
-    ]
-}
+            {
+                id: 4,
+                title: "Последний свет",
+                author: "RafStar",
+                year: 2023,
+                cover: "Последний свет",
+                pages: [
+                    `<div class="chapter-start">Часть 1</div>
+                    <p>В старом доме на окраине города, где скрипели половицы и пахли пылью занавески, жил Александр — мужчина лет пятидесяти с усталыми глазами и сединой в волосах. Он редко выходил на улицу, редко разговаривал с соседями. Его мир сузился до четырёх стен, где единственным собеседником было прошлое.</p>
+                    <p>Каждый вечер он садился у окна с потёртой фотографией в руках. На ней — молодая женщина с улыбкой, от которой когда‑то становилось теплее. Анна. Его жена. Её не стало три года назад, но для Александра время словно остановилось.</p>
+                    <div class="chapter-start">Часть 2</div>
+                    <p>Однажды в дверь постучали. На пороге стояла девочка лет десяти — соседка из дома напротив.</p>
+                    <p>— Вы Александр Иванович? — спросила она, переминаясь с ноги на ногу. — Бабушка говорит, что вы раньше были художником. А я рисую, но у меня не очень получается…</p>
+                    <p>Он хотел закрыть дверь. Хотел остаться в своём мире тишины и воспоминаний. Но что‑то в её глазах — такое же потерянное, как его собственное — заставило его отступить.</p>
+                    <p>— Заходи, — пробормотал он.</p>`,
+                    
+                    `<p>Первые занятия были неловкими. Девочка, Лиза, пыталась копировать его мазки, но всё выходило криво. Александр хмурился, но не прогонял её. Постепенно разговоры стали длиннее. Лиза рассказывала о школе, о маме, которая вечно занята, о том, как ей одиноко. Александр слушал и вдруг понял: её одиночество было таким же тяжёлым, как его.</p>
+                    <div class="chapter-start">Часть 3</div>
+                    <p>Через месяц Лиза принесла свой рисунок — неумелый, но тёплый: старый дом, окно, в котором виднеется силуэт мужчины, и маленькая девочка рядом.</p>
+                    <p>— Это мы, — сказала она. — Вы больше не один.</p>
+                    <p>Александр молча смотрел на рисунок. В груди что‑то дрогнуло — будто трещина в ледяной глыбе, через которую пробился свет.</p>
+                    <p>А потом Лиза перестала приходить.</p>`,
+                    
+                    `<p>Он узнал случайно: её мама, встретив его на улице, сухо сказала, что они переезжают. Далеко. Навсегда.</p>
+                    <p>Александр вернулся домой, сел у окна и сжал в руках тот самый рисунок. Впервые за три года слёзы пришли не от боли утраты, а от чего‑то другого — от благодарности, от осознания, что даже на миг он перестал быть один.</p>
+                    <div class="chapter-start">Эпилог</div>
+                    <p>Вечером он взял кисти. Долго смотрел на чистый холст, а потом начал рисовать. Дом. Окно. Силуэты. И свет — тёплый, дрожащий, как надежда.</p>
+                    <p>Это был его первый новый рисунок за много лет.</p>
+                    <p style="font-style: italic; margin-top: 2em; text-align: center; border-top: 1px solid #ccc; padding-top: 1em;">
+                    «Иногда самый маленький лучик света может растопить самую толстую стену льда»
+                    </p>`
+                ]
+            },
+            {
+                id: 5,
+                title: "Тень забытого рода",
+                author: "RafStar",
+                year: 2025,
+                cover: "Тень забытого рода",
+                pages: [
+                    `<div class="chapter-start">Пролог</div>
+                    <p>В мире, где сила измеряется не мускулами, а умением сливаться с тенями, я проснулся — но не в своём теле.</p>
+                    <div class="chapter-start">Глава 1. Пробуждение в чужом теле</div>
+                    <p>Я открыл глаза и увидел низкий сводчатый потолок из серого камня. В воздухе витал запах сырости и старых трав. Тело ныло, будто после десятичасовой тренировки, но это было не моё тело: тонкие пальцы с бледной кожей, хрупкие запястья, непривычная лёгкость в движениях.</p>
+                    <p>Память обрушилась лавиной.</p>
+                    <p>Лираэль Вельторн, 17 лет. Последняя из древнего рода теневых магов. Изгнана из академии за «неконтролируемые проявления силы». Живёт в заброшенной башне на окраине Сумеречного леса.</p>
+                    <p>Я — не она. Я — Максим, программист из XXI века, который вчера вечером уснул за монитором, разбираясь в чужом коде. А теперь… теперь я в её теле, в мире, где магия реальна, а тени живут своей жизнью.</p>`,
+                    
+                    `<div class="chapter-start">Глава 2. Первые шаги в тени</div>
+                    <p>Лираэль (или уже я?) села на жёсткой кровати и протянула руку. Тени вокруг зашевелились, словно живые: потянулись к пальцам, обвили запястья, прошептали что‑то на незнакомом языке.</p>
+                    <p>— Так вот как это работает, — прошептала я, пытаясь уловить ритм.</p>
+                    <p>Тени откликались на эмоции. Страх делал их резкими и агрессивными, любопытство — плавными и любопытными, как котята. Я сосредоточилась на спокойствии, и тени успокоились, образовав вокруг меня тихий вихрь.</p>
+                    <p>«Нужно понять правила этого мира. И найти способ вернуться… или выжить здесь».</p>
+                    <div class="chapter-start">Глава 3. Встреча с прошлым</div>
+                    <p>На следующий день я отправилась в ближайшую деревню. Нужно было купить еду и узнать, что происходит в мире. В таверне «Сумеречный ворон» меня окликнул грубый голос:</p>
+                    <p>— Лираэль? Ты ещё не сбежала из своих развалин?</p>`,
+                    
+                    `<p>За столом сидел мужчина в кожаной куртке, с татуировкой в виде змеи на шее. Его глаза светились жёлтым — признак мага крови.</p>
+                    <p>— Валтор, — процедила я, стараясь не показать страха. — Что тебе нужно?</p>
+                    <p>— Ты знаешь, что твой род проклял этот лес? Тени убивают людей. И если ты не докажешь, что контролируешь их, тебя сожгут на костре.</p>
+                    <p>Я сжала кулаки. Тени за моей спиной зашипели.</p>
+                    <p>— Я не виновата в проклятии. Но разберусь с ним.</p>
+                    <p>Валтор усмехнулся:</p>
+                    <p>— Посмотрим. Время идёт, Лираэль. Тени не ждут.</p>
+                    <div class="chapter-start">Глава 4. Тайна рода</div>
+                    <p>Вернувшись в башню, я перерыла все книги. В одной из них, покрытой паутиной, нашлась запись:</p>`,
+                    
+                    `<p>«Род Вельторн заключил договор с Тенью Бездны. Сила дана, но цена — души потомков. Когда последняя из рода пробудит древнюю магию, проклятие либо падёт, либо поглотит мир».</p>
+                    <p>Значит, я не просто застряла в этом теле. Я — ключ. Либо спаситель, либо разрушитель.</p>
+                    <p>Тени вокруг зашевелились сильнее. Они ждали.</p>
+                    <div class="chapter-start">Глава 5. Выбор</div>
+                    <p>Ночью я вышла на поляну перед башней. Небо было усыпано звёздами, но их свет поглощала тьма. Я подняла руки и позвала:</p>
+                    <p>— Тень Бездны, я слышу тебя. Что ты хочешь?</p>
+                    <p>Тишина. Затем — голос, звучащий в голове:</p>
+                    <p>«Ты должна принять тьму. Или она поглотит тебя».</p>`,
+                    
+                    `<p>Я закрыла глаза. Перед мысленным взором пронеслись образы: мой старый мир, друзья, работа. Всё это теперь далеко. Здесь и сейчас — только я и тени.</p>
+                    <p>— Хорошо, — сказала я. — Я принимаю.</p>
+                    <p>Тени рванулись ко мне, окутав с головой. Боль. Свет. И…</p>
+                    <p>Пробуждение.</p>
+                    <p>Теперь я видела мир иначе. Тени были не просто слугами — они были частью меня. А проклятие… оно ждало своего часа.</p>
+                    <div class="chapter-start">Финал (открытый)</div>
+                    <p>Я стояла на краю леса, глядя на деревню внизу. Валтор и его люди готовились к охоте на «проклятую ведьму». Но теперь я знала: тени — не враги. Они — моя сила.</p>
+                    <p>Что дальше? Сразиться? Сбежать? Или попытаться снять проклятие?</p>
+                    <p>Выбор за мной.</p>
+                    <p>И тени ждут.</p>
+                    <p style="font-style: italic; margin-top: 2em; text-align: center; border-top: 1px solid #ccc; padding-top: 1em;">
+                    «Когда тебя окружает тьма, не борись с ней — стань её частью»
+                    </p>`
+                ]
+            }
         ];
 
+        // Система отзывов
+        let reviews = JSON.parse(localStorage.getItem('libraryReviews')) || [];
+        
         // Текущая книга и страница в читалке
         let currentBook = null;
         let currentPage = 1;
         let fontSize = 18;
+        let isFullscreen = false;
+        let selectedRating = 0;
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
@@ -834,8 +1165,14 @@
             // Назначаем обработчики для переключения тем
             setupThemeSwitcher();
             
+            // Назначаем обработчики для системы отзывов
+            setupReviewsSystem();
+            
             // Восстанавливаем сохраненную тему
             loadSavedTheme();
+            
+            // Загружаем отзывы
+            loadReviews();
         });
 
         // Настройка переключателя тем
@@ -970,11 +1307,14 @@
             const nextBtn = document.getElementById('nextPage');
             const fontPlus = document.getElementById('fontPlus');
             const fontMinus = document.getElementById('fontMinus');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
             const readerContent = document.getElementById('readerContent');
             
             // Закрытие читалки
             closeBtn.addEventListener('click', closeReader);
             overlay.addEventListener('click', closeReader);
+            exitFullscreenBtn.addEventListener('click', toggleFullscreen);
             
             // Навигация по страницам
             prevBtn.addEventListener('click', function() {
@@ -1008,11 +1348,18 @@
                 readerContent.scrollTop = scrollPos;
             });
             
+            // Полноэкранный режим
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
             // Горячие клавиши
             document.addEventListener('keydown', function(e) {
                 if (readerWindow.style.display === 'flex') {
                     if (e.key === 'Escape') {
-                        closeReader();
+                        if (isFullscreen) {
+                            toggleFullscreen();
+                        } else {
+                            closeReader();
+                        }
                     } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                         if (currentBook && currentPage > 1) {
                             currentPage--;
@@ -1023,6 +1370,8 @@
                             currentPage++;
                             updateReaderContent();
                         }
+                    } else if (e.key === 'f' || e.key === 'F') {
+                        toggleFullscreen();
                     }
                 }
             });
@@ -1031,6 +1380,31 @@
             readerWindow.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
+        }
+
+        // Переключение полноэкранного режима
+        function toggleFullscreen() {
+            const readerWindow = document.getElementById('readerWindow');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+            
+            if (!isFullscreen) {
+                // Входим в полноэкранный режим
+                readerWindow.classList.add('fullscreen');
+                fullscreenBtn.innerHTML = '⛶';
+                fullscreenBtn.title = 'Обычный режим';
+                exitFullscreenBtn.style.display = 'flex';
+                document.getElementById('overlay').style.display = 'none';
+                isFullscreen = true;
+            } else {
+                // Выходим из полноэкранного режима
+                readerWindow.classList.remove('fullscreen');
+                fullscreenBtn.innerHTML = '⛶';
+                fullscreenBtn.title = 'Полноэкранный режим';
+                exitFullscreenBtn.style.display = 'none';
+                document.getElementById('overlay').style.display = 'block';
+                isFullscreen = false;
+            }
         }
 
         // Обновление контента в читалке
@@ -1050,8 +1424,213 @@
 
         // Закрытие читалки
         function closeReader() {
+            // Выходим из полноэкранного режима перед закрытием
+            if (isFullscreen) {
+                toggleFullscreen();
+            }
+            
             document.getElementById('readerWindow').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
+            document.getElementById('exitFullscreenBtn').style.display = 'none';
+        }
+
+        // Настройка системы отзывов
+        function setupReviewsSystem() {
+            const showReviewFormBtn = document.getElementById('showReviewForm');
+            const submitReviewBtn = document.getElementById('submitReview');
+            const stars = document.querySelectorAll('.star');
+            const reviewForm = document.getElementById('reviewForm');
+            
+            // Показать/скрыть форму отзыва
+            showReviewFormBtn.addEventListener('click', function() {
+                if (reviewForm.style.display === 'none' || !reviewForm.style.display) {
+                    reviewForm.style.display = 'block';
+                    showReviewFormBtn.textContent = 'Скрыть форму';
+                } else {
+                    reviewForm.style.display = 'none';
+                    showReviewFormBtn.textContent = 'Оставить отзыв';
+                }
+            });
+            
+            // Выбор оценки звездами
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    selectedRating = rating;
+                    document.getElementById('reviewRating').value = rating;
+                    
+                    // Обновляем отображение звезд
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                // Эффект при наведении
+                star.addEventListener('mouseover', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', function() {
+                    stars.forEach((s, index) => {
+                        if (index < selectedRating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Отправка отзыва
+            submitReviewBtn.addEventListener('click', submitReview);
+        }
+
+        // Загрузка отзывов
+        function loadReviews() {
+            const reviewsContainer = document.getElementById('reviewsContainer');
+            
+            // Очищаем контейнер
+            reviewsContainer.innerHTML = '';
+            
+            if (reviews.length === 0) {
+                reviewsContainer.innerHTML = '<div class="no-reviews">Пока нет отзывов. Будьте первым!</div>';
+                updateStats();
+                return;
+            }
+            
+            // Сортируем отзывы по дате (новые сначала)
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Добавляем отзывы
+            reviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                
+                // Создаем строку с звездами
+                let starsHtml = '';
+                for (let i = 0; i < 5; i++) {
+                    if (i < review.rating) {
+                        starsHtml += '★';
+                    } else {
+                        starsHtml += '☆';
+                    }
+                }
+                
+                // Форматируем дату
+                const date = new Date(review.date);
+                const formattedDate = date.toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-author">${review.name}</div>
+                        <div class="review-date">${formattedDate}</div>
+                    </div>
+                    <div class="review-rating">${starsHtml}</div>
+                    <div class="review-text">${review.text}</div>
+                `;
+                
+                reviewsContainer.appendChild(reviewCard);
+            });
+            
+            updateStats();
+        }
+
+        // Обновление статистики отзывов
+        function updateStats() {
+            const totalReviews = reviews.length;
+            const avgRating = reviews.length > 0 
+                ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+                : '0.0';
+            
+            // Количество отзывов за текущий месяц
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const reviewsThisMonth = reviews.filter(review => {
+                const reviewDate = new Date(review.date);
+                return reviewDate.getMonth() === currentMonth && reviewDate.getFullYear() === currentYear;
+            }).length;
+            
+            document.getElementById('totalReviews').textContent = totalReviews;
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('reviewsThisMonth').textContent = reviewsThisMonth;
+        }
+
+        // Отправка отзыва
+        function submitReview() {
+            const name = document.getElementById('reviewName').value.trim();
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const text = document.getElementById('reviewText').value.trim();
+            
+            // Валидация
+            if (!name) {
+                alert('Пожалуйста, введите ваше имя');
+                return;
+            }
+            
+            if (rating < 1 || rating > 5) {
+                alert('Пожалуйста, выберите оценку');
+                return;
+            }
+            
+            if (!text) {
+                alert('Пожалуйста, напишите текст отзыва');
+                return;
+            }
+            
+            if (text.length > 1000) {
+                alert('Отзыв слишком длинный. Максимальная длина: 1000 символов');
+                return;
+            }
+            
+            // Создаем новый отзыв
+            const newReview = {
+                id: Date.now(),
+                name: name,
+                rating: rating,
+                text: text,
+                date: new Date().toISOString()
+            };
+            
+            // Добавляем отзыв
+            reviews.unshift(newReview);
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('libraryReviews', JSON.stringify(reviews));
+            
+            // Очищаем форму
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewRating').value = '0';
+            document.getElementById('reviewText').value = '';
+            
+            // Сбрасываем звезды
+            document.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('active');
+            });
+            selectedRating = 0;
+            
+            // Перезагружаем отзывы
+            loadReviews();
+            
+            // Скрываем форму
+            document.getElementById('reviewForm').style.display = 'none';
+            document.getElementById('showReviewForm').textContent = 'Оставить отзыв';
+            
+            alert('Спасибо за ваш отзыв!');
         }
     </script>
 </body>
