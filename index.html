@@ -1347,9 +1347,171 @@
     </div>
 
     <script>
-        // === ОБЩИЕ НАСТРОЙКИ ===
-        const API_URL = 'https://rafstar.vercel.app/reviews.php'; // ЗАМЕНИТЕ на реальный URL вашего PHP файла
+        
+// === ОБЩИЕ НАСТРОЙКИ ===
+const API_URL = 'reviews.php'; // Или полный URL: 'https://ваш-сайт.ru/reviews.php'
 
+// ... остальной код без изменений ...
+
+// Функция для отправки отзыва
+async function submitReview() {
+    const name = document.getElementById('reviewName').value.trim();
+    const rating = parseInt(document.getElementById('reviewRating').value);
+    const text = document.getElementById('reviewText').value.trim();
+    
+    // Валидация
+    if (!name) {
+        alert('Пожалуйста, введите ваше имя');
+        return;
+    }
+    
+    if (rating < 1 || rating > 5) {
+        alert('Пожалуйста, выберите оценку');
+        return;
+    }
+    
+    if (!text) {
+        alert('Пожалуйста, напишите текст отзыва');
+        return;
+    }
+    
+    if (text.length > 1000) {
+        alert('Отзыв слишком длинный. Максимальная длина: 1000 символов');
+        return;
+    }
+    
+    // Создаем новый отзыв
+    const newReview = {
+        name: name,
+        rating: rating,
+        text: text,
+        date: new Date().toISOString()
+    };
+    
+    try {
+        // Отправляем отзыв на сервер
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newReview)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            throw new Error(result.error);
+        }
+        
+        // Очищаем форму
+        document.getElementById('reviewName').value = '';
+        document.getElementById('reviewRating').value = '0';
+        document.getElementById('reviewText').value = '';
+        
+        // Сбрасываем звезды
+        document.querySelectorAll('.star').forEach(star => {
+            star.classList.remove('active');
+        });
+        selectedRating = 0;
+        
+        // Перезагружаем отзывы
+        loadReviews();
+        
+        // Скрываем форму
+        document.getElementById('reviewForm').style.display = 'none';
+        document.getElementById('showReviewForm').textContent = 'Оставить отзыв';
+        
+        alert('Спасибо за ваш отзыв!');
+        
+    } catch (error) {
+        console.error('Ошибка отправки отзыва:', error);
+        alert(`Не удалось отправить отзыв: ${error.message}`);
+    }
+}
+
+// Обновленная функция загрузки отзывов
+async function loadReviews() {
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    
+    // Показываем сообщение о загрузке
+    reviewsContainer.innerHTML = '<div class="no-reviews">Загрузка отзывов...</div>';
+    
+    try {
+        // Пробуем загрузить с сервера
+        const response = await fetch(API_URL);
+        
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+        
+        const reviews = await response.json();
+        
+        // Очищаем контейнер
+        reviewsContainer.innerHTML = '';
+        
+        if (!reviews || reviews.length === 0) {
+            reviewsContainer.innerHTML = '<div class="no-reviews">Пока нет отзывов. Будьте первым!</div>';
+            updateStats(reviews || []);
+            return;
+        }
+        
+        // Сортируем отзывы по дате (новые сначала)
+        reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Добавляем отзывы
+        reviews.forEach(review => {
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            
+            // Создаем строку с звездами
+            let starsHtml = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < review.rating) {
+                    starsHtml += '★';
+                } else {
+                    starsHtml += '☆';
+                }
+            }
+            
+            // Форматируем дату
+            const date = new Date(review.date);
+            const formattedDate = date.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <div class="review-author">${review.name}</div>
+                    <div class="review-date">${formattedDate}</div>
+                </div>
+                <div class="review-rating">${starsHtml}</div>
+                <div class="review-text">${review.text}</div>
+            `;
+            
+            reviewsContainer.appendChild(reviewCard);
+        });
+        
+        updateStats(reviews);
+    } catch (error) {
+        console.error('Ошибка загрузки отзывов:', error);
+        // Показываем сообщение об ошибке
+        reviewsContainer.innerHTML = `
+            <div class="no-reviews">
+                <p>Не удалось загрузить отзывы.</p>
+                <p>Ошибка: ${error.message}</p>
+                <p>Попробуйте позже.</p>
+            </div>
+        `;
+        updateStats([]);
+    }
+}
         // Данные книг с объединенными страницами для лучшего чтения
         const books = [
             {
