@@ -176,8 +176,7 @@
         overlay.innerHTML = `
             <div class="main-message">${ANTI_THEFT_CONFIG.THEFT_MESSAGE}</div>
             <div class="sub-message">
-                ⚠️ Этот код защищен авторским правом<br>
-                Несанкционированное использование преследуется по закону
+                !!!Это не оригинальный сайт!!!
             </div>
             <div class="sub-message" style="font-size: clamp(14px, 2vw, 20px) !important;">
                 Вы просматриваете украденную копию сайта<br>
