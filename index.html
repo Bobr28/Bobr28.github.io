@@ -77,5 +77,63 @@
     <button class="exit-fullscreen-btn" id="exitFullscreenBtn" title="Выйти из полноэкранного режима (ESC)">✕</button>
 
     <script src="script.js"></script>
+<!-- В самый конец body -->
+<script>
+// Список разрешенных доменов
+const allowedDomains = [
+  'yourdomain.vercel.app',
+  'yourdomain.com',
+  'localhost'
+];
+
+const currentDomain = window.location.hostname;
+
+// Проверяем, есть ли текущий домен в списке разрешенных
+if (!allowedDomains.some(domain => currentDomain.includes(domain))) {
+  // Создаем полноэкранное окно
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: red;
+    color: white;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    font-weight: bold;
+    text-align: center;
+    flex-direction: column;
+    cursor: not-allowed;
+  `;
+  
+  overlay.innerHTML = `
+    <div>🚨 ЖУЛИК НЕ ВОРУЙ! 🚨</div>
+    <div style="font-size: 24px; margin-top: 20px;">
+      Этот код принадлежит владельцу сайта
+    </div>
+    <div style="font-size: 18px; margin-top: 40px;">
+      Контакты для связи: ваш_email@example.com
+    </div>
+  `;
+  
+  document.body.innerHTML = '';
+  document.body.appendChild(overlay);
+  
+  // Блокируем все действия
+  document.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
+}
+</script>
 </body>
 </html>
